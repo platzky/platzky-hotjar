@@ -1,0 +1,1 @@
+# Platzky Hotjar Plugin
