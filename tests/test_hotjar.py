@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 from platzky.platzky import create_app_from_config, Config
 
+
 def test_plugin_loader():
 
     secret_id_for_testing = "super_secret_id"
@@ -18,19 +19,26 @@ def test_plugin_loader():
             "DATA": {
                 "site_content": {"pages": []},
                 "plugins": [
-                    {"name": "hotjar", "config": {"/page/test": "/page/test2",
-                                                  "ID": secret_id_for_testing}}
+                    {
+                        "name": "hotjar",
+                        "config": {
+                            "/page/test": "/page/test2",
+                            "ID": secret_id_for_testing,
+                        },
+                    }
                 ],
             },
         },
     }
 
-    hotjar_function ="(function(h,o,t,j,a,r){"
+    hotjar_function = "(function(h,o,t,j,a,r){"
 
     config_with_plugin = Config.model_validate(data_with_plugin)
     app_with_plugin = create_app_from_config(config_with_plugin)
     response = app_with_plugin.test_client().get("/")
     decoded_response = response.data.decode()
-    assert hotjar_function in decoded_response and secret_id_for_testing in decoded_response
+    assert (
+        hotjar_function in decoded_response
+        and secret_id_for_testing in decoded_response
+    )
     assert response.status_code == 404
-
