@@ -36,9 +36,9 @@ def test_plugin_loader():
     config_with_plugin = Config.model_validate(data_with_plugin)
     app_with_plugin = create_app_from_config(config_with_plugin)
     response = app_with_plugin.test_client().get("/")
+    assert response.status_code == 404
     decoded_response = response.data.decode()
     assert (
         hotjar_function in decoded_response
         and secret_id_for_testing in decoded_response
     )
-    assert response.status_code == 404
