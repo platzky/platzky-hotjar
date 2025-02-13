@@ -22,7 +22,6 @@ def test_plugin_loader():
                     {
                         "name": "hotjar",
                         "config": {
-                            "/page/test": "/page/test2",
                             "ID": secret_id_for_testing,
                         },
                     }
