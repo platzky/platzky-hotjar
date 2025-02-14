@@ -4,7 +4,7 @@ from typing import Any, Dict
 from platzky.platzky import create_app_from_config, Config
 
 
-def test_plugin_loader():
+def test_that_plugin_loads_hotjar():
 
     secret_id_for_testing = "super_secret_id"
 
@@ -22,7 +22,6 @@ def test_plugin_loader():
                     {
                         "name": "hotjar",
                         "config": {
-                            "/page/test": "/page/test2",
                             "ID": secret_id_for_testing,
                         },
                     }

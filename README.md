@@ -2,7 +2,7 @@
 
 ## Overview
 
-Platzky Hotjar is a plugin for the Platzky framework that allows you to set up hotjar easily.
+Platzky Hotjar is a plugin for the Platzky framework that allows you to set up hotjar.
 
 ## Installation
 
@@ -16,11 +16,11 @@ pip install platzky-hotjar
 
 ```json
 "plugins": [
-{
-  "name": "hotjar",
-  "config": {
-    "/old-path": "/new-path"
-  }
-}
+    {
+        "name": "hotjar",
+        "config": {
+            "ID": your_hotjar_id,
+        },
+    }
 ]
 ```
