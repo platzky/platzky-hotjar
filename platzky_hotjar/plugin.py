@@ -1,21 +1,22 @@
 """Platzky Hotjar plugin — injects Hotjar tracking code into page head."""
 
+import inspect
 from typing import Type, cast
 
 from platzky.engine import Engine
 from platzky.plugin.plugin import PluginBase, PluginBaseConfig
-
-
 from pydantic import field_validator
+
 
 class HotjarConfig(PluginBaseConfig):
     """Configuration model for the Hotjar plugin."""
 
     ID: str
 
-    `@field_validator`("ID")
-    `@classmethod`
+    @field_validator("ID")
+    @classmethod
     def validate_id_is_numeric(cls, v: str) -> str:
+        """Validate that the Hotjar ID is a numeric string."""
         if not v.isdigit():
             raise ValueError("Hotjar ID must be a numeric string")
         return v
@@ -34,22 +35,21 @@ class HotjarPlugin(PluginBase[HotjarConfig]):
         config = cast(HotjarConfig, self.config)
         hj_id = config.ID
 
-        head_code = (
-            """<!-- Hotjar Tracking Code -->
-        <script>
-            (function(h,o,t,j,a,r){
-                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                h._hjSettings={hjid: """
-            + hj_id
-            + """, hjsv: 6};
-                a=o.getElementsByTagName('head')[0];
-                r=o.createElement('script');r.async=1;
-                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                a.appendChild(r);
-            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-        </script>
-        <!-- End Hotjar Tracking Code -->
-    """
+        head_code = inspect.cleandoc(
+            f"""
+            <!-- Hotjar Tracking Code -->
+            <script>
+                (function(h,o,t,j,a,r){{
+                    h.hj=h.hj||function(){{(h.hj.q=h.hj.q||[]).push(arguments)}};
+                    h._hjSettings={{hjid: {hj_id}, hjsv: 6}};
+                    a=o.getElementsByTagName('head')[0];
+                    r=o.createElement('script');r.async=1;
+                    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                    a.appendChild(r);
+                }})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            </script>
+            <!-- End Hotjar Tracking Code -->
+        """
         )
         app.add_dynamic_head(head_code)
 

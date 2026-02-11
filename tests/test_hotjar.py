@@ -4,7 +4,7 @@ from platzky.platzky import Config, create_app_from_config
 
 
 def test_that_plugin_loads_hotjar():
-    secret_id_for_testing = "super_secret_id"
+    secret_id_for_testing = "1234567"
 
     data_with_plugin: Dict[str, Any] = {
         "APP_NAME": "testingApp",
