@@ -1,7 +1,7 @@
 """Platzky Hotjar plugin — injects Hotjar tracking code into page head."""
 
 import inspect
-from typing import Type, cast
+from typing import cast
 
 from platzky.engine import Engine
 from platzky.plugin.plugin import PluginBase, PluginBaseConfig
@@ -26,7 +26,7 @@ class HotjarPlugin(PluginBase[HotjarConfig]):
     """Platzky plugin that injects Hotjar tracking code into the page head."""
 
     @classmethod
-    def get_config_model(cls) -> Type[HotjarConfig]:
+    def get_config_model(cls) -> type[HotjarConfig]:
         """Return the config model class for this plugin."""
         return HotjarConfig
 
