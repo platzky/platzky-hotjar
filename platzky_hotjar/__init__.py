@@ -1,1 +1,8 @@
-from platzky_hotjar.entrypoint import process as process
+from platzky_hotjar.plugin import HotjarPlugin
+
+Plugin = HotjarPlugin
+
+__all__ = [
+    "HotjarPlugin",
+    "Plugin",
+]
