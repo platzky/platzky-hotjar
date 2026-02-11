@@ -6,10 +6,19 @@ from platzky.engine import Engine
 from platzky.plugin.plugin import PluginBase, PluginBaseConfig
 
 
+from pydantic import field_validator
+
 class HotjarConfig(PluginBaseConfig):
     """Configuration model for the Hotjar plugin."""
 
     ID: str
+
+    `@field_validator`("ID")
+    `@classmethod`
+    def validate_id_is_numeric(cls, v: str) -> str:
+        if not v.isdigit():
+            raise ValueError("Hotjar ID must be a numeric string")
+        return v
 
 
 class HotjarPlugin(PluginBase[HotjarConfig]):
