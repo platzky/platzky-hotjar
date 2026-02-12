@@ -1,12 +1,10 @@
 from typing import Any, Dict
 
-
-from platzky.platzky import create_app_from_config, Config
+from platzky.platzky import Config, create_app_from_config
 
 
 def test_that_plugin_loads_hotjar():
-
-    secret_id_for_testing = "super_secret_id"
+    secret_id_for_testing = "1234567"
 
     data_with_plugin: Dict[str, Any] = {
         "APP_NAME": "testingApp",
@@ -37,7 +35,5 @@ def test_that_plugin_loads_hotjar():
     response = app_with_plugin.test_client().get("/")
     assert response.status_code == 404
     decoded_response = response.data.decode()
-    assert (
-        hotjar_function in decoded_response
-        and secret_id_for_testing in decoded_response
-    )
+    assert hotjar_function in decoded_response
+    assert secret_id_for_testing in decoded_response
