@@ -10,12 +10,12 @@ readme = "README.md"
 python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^9.0.2"
-platzky = "^1.4.2"
+pytest = "^9.0.3"
+platzky = "^1.4.10"
 black = "^24.10.0"
-ruff = "^0.15.0"
-pyright = "^1.1.390"
-coverage = "^7.6.9"
+ruff = "^0.15.12"
+pyright = "^1.1.409"
+coverage = "^7.13.5"
 interrogate = "^1.7.0"
 python-semantic-release = "^10.4.1"
 
