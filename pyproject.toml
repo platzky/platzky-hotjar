@@ -8,10 +8,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+platzky = "^2.0.0a10"
+
+[tool.poetry.plugins."platzky.plugins"]
+hotjar = "platzky_hotjar:HotjarPlugin"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
-platzky = "^1.4.2"
 black = "^24.10.0"
 ruff = "^0.15.0"
 pyright = "^1.1.390"

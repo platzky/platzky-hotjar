@@ -10,20 +10,21 @@ def test_that_plugin_loads_hotjar():
         "APP_NAME": "testingApp",
         "SECRET_KEY": "secret",
         "USE_WWW": False,
-        "BLOG_PREFIX": "/",
+        "BLOG_PREFIX": "/blog",
         "TRANSLATION_DIRECTORIES": ["/some/fake/dir"],
         "DB": {
             "TYPE": "json",
             "DATA": {
                 "site_content": {"pages": []},
-                "plugins": [
-                    {
-                        "name": "hotjar",
+                "plugins": {
+                    "hotjar": {
+                        "is_active": True,
+                        "allowed_page_sections": ["head"],
                         "config": {
                             "ID": secret_id_for_testing,
                         },
                     }
-                ],
+                },
             },
         },
     }
