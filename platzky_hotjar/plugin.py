@@ -1,14 +1,13 @@
 """Platzky Hotjar plugin — injects Hotjar tracking code into page head."""
 
 import inspect
-from typing import cast
+from typing import Any
 
-from platzky.engine import Engine
-from platzky.plugin.plugin import PluginBase, PluginBaseConfig
-from pydantic import field_validator
+from platzky.plugin.html_injector import HtmlInjectorPluginBase, PageSection
+from pydantic import BaseModel, field_validator
 
 
-class HotjarConfig(PluginBaseConfig):
+class HotjarConfig(BaseModel):
     """Configuration model for the Hotjar plugin."""
 
     ID: str
@@ -22,20 +21,21 @@ class HotjarConfig(PluginBaseConfig):
         return v
 
 
-class HotjarPlugin(PluginBase[HotjarConfig]):
+class HotjarPlugin(HtmlInjectorPluginBase):
     """Platzky plugin that injects Hotjar tracking code into the page head."""
 
-    @classmethod
-    def get_config_model(cls) -> type[HotjarConfig]:
-        """Return the config model class for this plugin."""
-        return HotjarConfig
+    accepted_page_sections: frozenset[PageSection] = frozenset({"head"})
 
-    def process(self, app: Engine) -> Engine:
-        """Inject Hotjar tracking script into the app's dynamic head."""
-        config = cast(HotjarConfig, self.config)
-        hj_id = config.ID
+    def __init__(self, config: dict[str, Any]) -> None:
+        """Validate the plugin configuration."""
+        super().__init__(config)
+        self.hotjar_config = HotjarConfig.model_validate(config)
 
-        head_code = inspect.cleandoc(
+    def get_head_html(self) -> str:
+        """Return the Hotjar tracking script to inject into the page head."""
+        hj_id = self.hotjar_config.ID
+
+        return inspect.cleandoc(
             f"""
             <!-- Hotjar Tracking Code -->
             <script>
@@ -51,6 +51,3 @@ class HotjarPlugin(PluginBase[HotjarConfig]):
             <!-- End Hotjar Tracking Code -->
         """
         )
-        app.add_dynamic_head(head_code)
-
-        return app

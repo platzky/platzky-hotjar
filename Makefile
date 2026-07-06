@@ -22,8 +22,5 @@ coverage:
 html-cov: coverage
 	poetry run coverage html
 
-audit:
-	poetry audit --ignore-package=py
-
 build:
 	poetry build
