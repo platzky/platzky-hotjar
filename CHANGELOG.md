@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## [0.2.0](https://github.com/platzky/platzky-hotjar/compare/0.1.1...v0.2.0) (2026-07-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* align plugin with new plugins setup ([#15](https://github.com/platzky/platzky-hotjar/issues/15))
+
+### Features
+
+* align plugin with new plugins setup ([#15](https://github.com/platzky/platzky-hotjar/issues/15)) ([e13a50f](https://github.com/platzky/platzky-hotjar/commit/e13a50f513160ec08b1e4440d36d5d19e5a280e3))
+
 ## v0.1.1 (2026-02-12)
 
 ### Bug Fixes
